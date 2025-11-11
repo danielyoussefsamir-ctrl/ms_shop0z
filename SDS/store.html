@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>متجر الألعاب</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+    color: #e0e0e0;
+    position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* الخطوط المتحركة في الخلفية */
+  .animated-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.4), transparent);
+    animation: moveLine 8s linear infinite;
+  }
+
+  .line:nth-child(1) {
+    width: 2px;
+    height: 100%;
+    left: 15%;
+    animation-delay: 0s;
+    animation-duration: 10s;
+  }
+
+  .line:nth-child(2) {
+    width: 2px;
+    height: 100%;
+    left: 35%;
+    animation-delay: 2s;
+    animation-duration: 12s;
+  }
+
+  .line:nth-child(3) {
+    width: 2px;
+    height: 100%;
+    left: 55%;
+    animation-delay: 4s;
+    animation-duration: 9s;
+  }
+
+  .line:nth-child(4) {
+    width: 2px;
+    height: 100%;
+    left: 75%;
+    animation-delay: 1s;
+    animation-duration: 11s;
+  }
+
+  .line:nth-child(5) {
+    width: 2px;
+    height: 100%;
+    left: 85%;
+    animation-delay: 3s;
+    animation-duration: 13s;
+  }
+
+  .line-horizontal {
+    width: 100%;
+    height: 2px;
+    animation: moveLineHorizontal 15s linear infinite;
+  }
+
+  .line-horizontal:nth-child(6) {
+    top: 25%;
+    animation-delay: 0s;
+  }
+
+  .line-horizontal:nth-child(7) {
+    top: 55%;
+    animation-delay: 5s;
+  }
+
+  .line-horizontal:nth-child(8) {
+    top: 85%;
+    animation-delay: 10s;
+  }
+
+  @keyframes moveLine {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes moveLineHorizontal {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* رسومات هندسية متحركة */
+  .floating-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .shape {
+    position: absolute;
+    opacity: 0.08;
+    animation: float 20s infinite ease-in-out;
+  }
+
+  .shape.circle {
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+  }
+
+  .shape.square {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    transform: rotate(45deg);
+  }
+
+  .shape.triangle {
+    width: 0;
+    height: 0;
+    background: transparent;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 80px solid rgba(102, 126, 234, 0.25);
+  }
+
+  .shape:nth-child(1) {
+    width: 70px;
+    height: 70px;
+    top: 8%;
+    left: 12%;
+    animation-delay: 0s;
+    animation-duration: 17s;
+  }
+
+  .shape:nth-child(2) {
+    width: 50px;
+    height: 50px;
+    top: 18%;
+    right: 18%;
+    animation-delay: 2s;
+    animation-duration: 19s;
+  }
+
+  .shape:nth-child(3) {
+    width: 90px;
+    height: 90px;
+    bottom: 12%;
+    left: 25%;
+    animation-delay: 4s;
+    animation-duration: 21s;
+  }
+
+  .shape:nth-child(4) {
+    width: 60px;
+    height: 60px;
+    top: 65%;
+    right: 8%;
+    animation-delay: 1s;
+    animation-duration: 18s;
+  }
+
+  .shape:nth-child(5) {
+    top: 45%;
+    left: 8%;
+    animation-delay: 3s;
+    animation-duration: 23s;
+  }
+
+  .shape:nth-child(6) {
+    width: 80px;
+    height: 80px;
+    bottom: 25%;
+    right: 22%;
+    animation-delay: 5s;
+    animation-duration: 20s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-25px) rotate(90deg);
+    }
+    50% {
+      transform: translateY(0) rotate(180deg);
+    }
+    75% {
+      transform: translateY(-25px) rotate(270deg);
+    }
+  }
+
+  /* نجوم متلألئة */
+  .stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.15;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.3);
+    }
+  }
+
+  header {
+    background: rgba(10,10,10,0.8);
+    backdrop-filter: blur(10px);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(100,200,255,0.1);
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .logo {
+    font-size: 48px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+  }
+
+  nav a {
+    margin-left: 20px;
+    font-weight: 600;
+    color: #b0b0b0;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  nav a:hover {
+    color: #667eea;
+    text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+  }
+
+  /* User Profile Mini in Store */
+  .user-profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(145deg, rgba(30, 30, 46, 0.8), rgba(37, 37, 56, 0.8));
+    backdrop-filter: blur(10px);
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    margin-left: 15px;
+  }
+
+  .user-avatar-mini {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #667eea;
+    object-fit: cover;
+  }
+
+  .user-profile-mini span {
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .login-link {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff !important;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    margin-left: 15px;
+    display: inline-block;
+  }
+
+  .login-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    text-shadow: none;
+  }
+
+  .back-home-btn {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 50px;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .back-home-btn:hover {
+    transform: translateX(-50%) translateY(-3px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+    background: linear-gradient(135deg, #764ba2, #667eea);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+  }
+
+  .product {
+    background: linear-gradient(145deg, #1e1e2e, #252538);
+    border: 1px solid rgba(100,200,255,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+
+  .product:hover {
+    transform: translateY(-10px);
+    border-color: rgba(102, 126, 234, 0.5);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+  }
+
+  .product img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    filter: brightness(0.9);
+    transition: filter 0.3s;
+  }
+
+  .product:hover img {
+    filter: brightness(1.1);
+  }
+
+  .product-info {
+    padding: 15px;
+    text-align: center;
+    background: rgba(20,20,30,0.5);
+  }
+
+  .product-info h3 {
+    margin: 10px 0;
+    color: #f0f0f0;
+    font-size: 1.1em;
+  }
+
+  .product-info p {
+    color: #667eea;
+    font-weight: bold;
+    margin: 5px 0 15px;
+    font-size: 1.2em;
+  }
+
+  /* زر مودرن مع أنيميشن */
+  .add-to-cart-btn {
+    position: relative;
+    display: inline-block;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+    background-size: 200% 200%;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 
+      0 5px 15px rgba(102, 126, 234, 0.4),
+      0 0 20px rgba(102, 126, 234, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    animation: gradientShift 3s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* تأثير التموج */
+  .add-to-cart-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .add-to-cart-btn:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* أيقونة السلة المتحركة */
+  .add-to-cart-btn::after {
+    content: '🛒';
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+
+  .add-to-cart-btn:hover::after {
+    right: 15px;
+    opacity: 1;
+    animation: cartBounce 0.6s ease;
+  }
+
+  @keyframes cartBounce {
+    0%, 100% {
+      transform: translateY(-50%) scale(1);
+    }
+    50% {
+      transform: translateY(-50%) scale(1.2);
+    }
+  }
+
+  .add-to-cart-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 
+      0 10px 30px rgba(102, 126, 234, 0.6),
+      0 0 40px rgba(102, 126, 234, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    padding-right: 50px;
+  }
+
+  .add-to-cart-btn:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      0 5px 15px rgba(102, 126, 234, 0.5),
+      0 0 20px rgba(102, 126, 234, 0.3);
+  }
+
+  /* جزيئات متحركة */
+  .add-to-cart-btn .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .add-to-cart-btn .particles span {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: particleFloat 2s linear infinite;
+    opacity: 0;
+  }
+
+  .add-to-cart-btn:hover .particles span {
+    opacity: 1;
+  }
+
+  .add-to-cart-btn .particles span:nth-child(1) {
+    left: 20%;
+    animation-delay: 0s;
+  }
+
+  .add-to-cart-btn .particles span:nth-child(2) {
+    left: 40%;
+    animation-delay: 0.3s;
+  }
+
+  .add-to-cart-btn .particles span:nth-child(3) {
+    left: 60%;
+    animation-delay: 0.6s;
+  }
+
+  .add-to-cart-btn .particles span:nth-child(4) {
+    left: 80%;
+    animation-delay: 0.9s;
+  }
+
+  @keyframes particleFloat {
+    0% {
+      bottom: 0;
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      bottom: 100%;
+      opacity: 0;
+    }
+  }
+
+  .cart {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(145deg, #1e1e2e, #252538);
+    padding: 15px 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(100,200,255,0.2);
+    z-index: 100;
+    min-width: 280px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+  }
+
+  .cart h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #667eea;
+    text-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+  }
+
+  .cart-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
+  .cart-items::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .cart-items::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+  }
+
+  .cart-items::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.5);
+    border-radius: 10px;
+  }
+
+  .cart-items li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(100,200,255,0.1);
+    font-size: 14px;
+    color: #d0d0d0;
+  }
+
+  .checkout-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+  }
+
+  .checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+    background: linear-gradient(135deg, #764ba2, #667eea);
+  }
+
+  .checkout-btn:disabled {
+    background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 20px;
+    background: rgba(10,10,10,0.8);
+    margin-top: 80px;
+    border-top: 1px solid rgba(100,200,255,0.1);
+    position: relative;
+    z-index: 2;
+  }
+
+  .contact a {
+    color: #667eea;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: all 0.3s;
+  }
+
+  .contact a:hover {
+    color: #764ba2;
+    text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- الخطوط المتحركة -->
+<div class="animated-lines">
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line line-horizontal"></div>
+  <div class="line line-horizontal"></div>
+  <div class="line line-horizontal"></div>
+</div>
+
+<!-- الأشكال الهندسية الطائرة -->
+<div class="floating-shapes">
+  <div class="shape circle"></div>
+  <div class="shape square"></div>
+  <div class="shape circle"></div>
+  <div class="shape square"></div>
+  <div class="shape triangle"></div>
+  <div class="shape circle"></div>
+</div>
+
+<!-- النجوم المتلألئة -->
+<div class="stars" id="stars-container"></div>
+
+<header>
+  <div class="logo">MS</div>
+  <nav>
+    <a href="index.html">الأقسام</a>
+    <!-- User Profile Section -->
+    <div class="user-profile-mini" id="user-profile-store" style="display: none;">
+      <img src="" alt="User" id="user-avatar-store" class="user-avatar-mini">
+      <span id="user-name-store">مستخدم</span>
+    </div>
+    <div class="login-prompt-mini" id="login-prompt-store">
+      <a href="login.html" class="login-link">تسجيل الدخول</a>
+    </div>
+  </nav>
+</header>
+
+<button class="back-home-btn" onclick="window.location.href='index.html'">🏠 العودة للصفحة الرئيسية</button>
+
+<div class="cart">
+  <h3>السلة</h3>
+  <ul class="cart-items" id="cart-items"></ul>
+  <button id="checkout-btn" class="checkout-btn" onclick="checkout()">إتمام الشراء 🛒</button>
+</div>
+
+<div class="container">
+  <h1 id="section-title">متجر</h1>
+  <div class="product-grid" id="product-grid"></div>
+</div>
+
+<footer>
+  لأي استفسار:
+  <div class="contact">
+    <a href="https://discord.gg/5KpMYr3h" target="_blank">ديسكورد</a>
+    <span> | </span>
+    <span>01021669867</span>
+  </div>
+  <div>جميع الحقوق محفوظة &copy; 2025</div>
+</footer>
+
+<script>
+// User Authentication Check for Store Page
+function checkUserLoginStore() {
+  const currentUser = localStorage.getItem('currentUser');
+  const userProfile = document.getElementById('user-profile-store');
+  const loginPrompt = document.getElementById('login-prompt-store');
+  
+  if (currentUser) {
+    const user = JSON.parse(currentUser);
+    
+    // عرض معلومات المستخدم
+    userProfile.style.display = 'flex';
+    loginPrompt.style.display = 'none';
+    
+    // تحديث الاسم
+    document.getElementById('user-name-store').textContent = user.displayName || 'مستخدم';
+    
+    // تحديث الصورة
+    const avatar = document.getElementById('user-avatar-store');
+    if (user.photoURL) {
+      avatar.src = user.photoURL;
+    } else {
+      // صورة افتراضية
+      avatar.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E';
+    }
+  } else {
+    // عرض زر تسجيل الدخول
+    userProfile.style.display = 'none';
+    loginPrompt.style.display = 'block';
+  }
+}
+
+// تحقق من تسجيل الدخول عند تحميل الصفحة
+checkUserLoginStore();
+
+// إضافة نجوم عشوائية
+function createStars() {
+  const starsContainer = document.getElementById('stars-container');
+  const numberOfStars = 80;
+  
+  for (let i = 0; i < numberOfStars; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    starsContainer.appendChild(star);
+  }
+}
+
+createStars();
+
+// تحميل المنتجات من الإعدادات أو استخدام القيم الافتراضية
+function loadProductsData() {
+  const defaultRobux = [
+    {name: 'صافي روبوكس 100',  price: '40 جنيه',  img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'صافي روبوكس 200',  price: '80 جنيه',  img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'صافي روبوكس 300',  price: '120 جنيه', img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'صافي روبوكس 400',  price: '160 جنيه', img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'صافي روبوكس 500',  price: '200 جنيه', img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'صافي روبوكس 1000', price: '400 جنيه', img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'تبرع روبوكس 100',  price: '35 جنيه',  img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'تبرع روبوكس 200',  price: '65 جنيه',  img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'تبرع روبوكس 300',  price: '95 جنيه',  img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'تبرع روبوكس 400',  price: '125 جنيه', img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'تبرع روبوكس 500',  price: '160 جنيه', img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'},
+    {name: 'تبرع روبوكس 1000', price: '300 جنيه', img: 'https://store-images.s-microsoft.com/image/apps.21744.63170056150000512.c917c3cd-3799-4c25-8ab0-90275b08c59c.fd3c1287-148a-42cd-a50c-cda4f4f09d80?q=90&w=480&h=270'}
+  ];
+
+  const defaultFarm = [
+    {name: 'KITSUNE', price: '650 جنيه', img: 'https://media.discordapp.net/attachments/1420494479118569584/1437500451531653202/image.png?ex=6913781f&is=6912269f&hm=275a234b98bfc152358879684c70d865c08bdd9904fb572712a80ce28041b46a&=&format=webp&quality=lossless'},
+    {name: 'RACCOON', price: '299 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501750448754698/image.png?ex=69137954&is=691227d4&hm=c7ba37afdd9940dffccbda8a6808bcb0744032764adbd337f555e51ec39108fa&'},
+    {name: 'DISCO BEE', price: '230 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501660866941123/image.png?ex=6913793f&is=691227bf&hm=2650ca0bff8267c41ba2da0e1c42c88dda62d4a33042212a433b573aa4f42af4&'},
+    {name: 'BUTTERFLY', price: '200 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501563362087034/image.png?ex=69137928&is=691227a8&hm=fd49ce66b51181c8b5db19ba95a4357942b7d66df85c94d0d1805e05e4548172'},
+    {name: 'FENNEC FOX', price: '200 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501535100735698/image.png?ex=69137921&is=691227a1&hm=dd06cfe648349a75dfbe563f5ac7fb13d87c33f7acaacd730951bb88d79a54ca&'},
+    {name: 'SPINOSAURUS', price: '90 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437500482045219058/image.png?ex=69137826&is=691226a6&hm=0ec45b6a245fcc7e869621533035fa72304387b5a373d7777901dd1a3679dcfd&'},
+    {name: 'GRIFFIN', price: '40 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437500546935427182/image.png?ex=69137835&is=691226b5&hm=246633b561e0ffafae9f71dc1489d193262021c03fa9ee93d99521fd787c1913&'},
+    {name: 'MIMIC OCTOPUS', price: '80 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501494747467937/image.png?ex=69137917&is=69122797&hm=f03c29beb6fdd7d2f0f1f7111219ad4631aa804f0f60f433ef10fe41abfc941b&'},
+    {name: 'DRAGONFLY', price: '90 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501724855107675/image.png?ex=6913794e&is=691227ce&hm=e4654b2eb98b5fab1bcbbb1bdc551af2356d5923e5dcf99dd19d8a6451f627d8&'},
+    {name: 'T-REX', price: '90 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501626226180126/image.png?ex=69137937&is=691227b7&hm=6bf1bb0dad56db3a712d672ce37c4bdd4f5d4f3e7afef04f53f06bc3293d8a9b&'},
+    {name: 'GOLDEN GOOSE', price: '50 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437500513611677726/image.png?ex=6913782d&is=691226ad&hm=5726dd4a76e8b459b6adb9822e3f330de79834cb2a80feaa5687c363a7c2f3b9&'},
+    {name: 'QUEEN BEE', price: '90 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501591585558558/image.png?ex=6913792e&is=691227ae&hm=a4a06e518a3aa34b338569f60925b72381c1a1578abf44b293a24af7417ef9a3&'},
+    {name: 'CHICKEN ZOMBIE', price: '70 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501457170563143/image.png?ex=6913790e&is=6912278e&hm=847d709eaeb5e814673006dcfaa23f201cda082bae25d63c5b3f781e04d8f542&'},
+    {name: 'RED FOX', price: '30 جنيه', img: 'https://cdn.discordapp.com/attachments/1420494479118569584/1437501684640120923/image.png?ex=69137945&is=691227c5&hm=155767582aede07c71422175c090bfcb371f4ff2e00f726b82b4912e41e9684b&'}
+  ];
+
+  const defaultHeist = [
+    {name: 'Chillin Chili', price: '500 جنيه', img: 'https://media.discordapp.net/attachments/1324785813598244895/1437496369370759410/image.png?ex=69141d11&is=6912cb91&hm=98ea5d4d07699377b40966128bdae3e9cedade0791d0f03c7466c0cf64fdd46d&=&format=webp&quality=lossless'},
+    {name: 'Esok Sekola', price: '300 جنيه', img: 'https://media.discordapp.net/attachments/1324785813598244895/1437496248402841630/image.png?ex=69141cf5&is=6912cb75&hm=f87000c2e5d14da41aeece697b8951f7b95e6b6604dca1568e8581971a658b42&=&format=webp&quality=lossless'},
+    {name: 'La Grande Combinasion', price: '150 جنيه', img: 'https://media.discordapp.net/attachments/1324785813598244895/1437496328216121404/image.png?ex=69141d08&is=6912cb88&hm=166bf3e6ca98a2a0a48515ddf9ef8bd1a8ef1f0ddeb53c8e3caac6297d82726b&=&format=webp&quality=lossless'},
+    {name: 'Eviledon', price: '550 جنيه', img: 'https://media.discordapp.net/attachments/1324785813598244895/1437496289809141811/image.png?ex=69141cfe&is=6912cb7e&hm=e1cbd1f5ce9012f0b0b1875b9df364c4cd1e573d6e9ca5b319736338862d1258&=&format=webp&quality=lossless'},
+    {name: 'Ketupat Kepat', price: '600 جنيه', img: 'https://cdn.discordapp.com/attachments/1324785813598244895/1437496411422982144/image.png?ex=69141d1b&is=6912cb9b&hm=1d5930ce4fe525c5d2d221971349023c056454c4935d8cfec0f052031bcb7846'}
+  ];
+
+  // قراءة البيانات من localStorage (من صفحة الإعدادات)
+  const adminRobux = JSON.parse(localStorage.getItem('admin_robux'));
+  const adminFarm = JSON.parse(localStorage.getItem('admin_farm'));
+  const adminHeist = JSON.parse(localStorage.getItem('admin_heist'));
+
+  // تحويل البيانات من صيغة الإدارة إلى صيغة العرض
+  function formatProducts(adminData) {
+    return adminData.map(item => ({
+      name: item.name,
+      price: item.price + ' جنيه',
+      img: item.img
+    }));
+  }
+
+  return {
+    robux: adminRobux ? formatProducts(adminRobux) : defaultRobux,
+    farm_map: adminFarm ? formatProducts(adminFarm) : defaultFarm,
+    heist_map: adminHeist ? formatProducts(adminHeist) : defaultHeist
+  };
+}
+
+const products = loadProductsData();
+
+const selectedSection = localStorage.getItem('selectedSection');
+document.getElementById('section-title').innerText = selectedSection === 'robux' ? 'قسم روبكس' :
+                                                      selectedSection === 'farm_map' ? 'قسم ماب المزرعة' :
+                                                      'قسم ماب السرقة';
+
+const productGrid = document.getElementById('product-grid');
+const cartItems = document.getElementById('cart-items');
+
+// تحميل السلة من localStorage أو إنشاء سلة جديدة
+let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+// عرض السلة عند تحميل الصفحة
+updateCart();
+
+products[selectedSection].forEach(product => {
+  const prodDiv = document.createElement('div');
+  prodDiv.classList.add('product');
+  prodDiv.innerHTML = `
+    <img src="${product.img}" alt="${product.name}">
+    <div class="product-info">
+      <h3>${product.name}</h3>
+      <p>${product.price}</p>
+      <button class="add-to-cart-btn">
+        <div class="particles">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        أضف إلى السلة
+      </button>
+    </div>
+  `;
+  const btn = prodDiv.querySelector('.add-to-cart-btn');
+  btn.addEventListener('click', () => {
+    cart.push(product);
+    localStorage.setItem('shoppingCart', JSON.stringify(cart));
+    updateCart();
+    
+    // تأثير بصري عند الإضافة
+    btn.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      btn.style.transform = '';
+    }, 100);
+  });
+  productGrid.appendChild(prodDiv);
+});
+
+function updateCart() {
+  const checkoutBtn = document.getElementById('checkout-btn');
+  cartItems.innerHTML = '';
+  
+  if (cart.length === 0) {
+    cartItems.innerHTML = '<li style="color: #00ffea;">السلة فارغة</li>';
+    checkoutBtn.disabled = true;
+    return;
+  }
+  
+  checkoutBtn.disabled = false;
+  
+  cart.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.innerHTML = `${item.name} - ${item.price} <button onclick="removeItem(${index})" style="background:none;border:none;color:#ff3b81;cursor:pointer;margin-right:5px;">✕</button>`;
+    cartItems.appendChild(li);
+  });
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem('shoppingCart', JSON.stringify(cart));
+  updateCart();
+}
+
+function checkout() {
+  if (cart.length === 0) {
+    alert('السلة فارغة!');
+    return;
+  }
+  
+  // التحقق من تسجيل الدخول
+  const currentUser = localStorage.getItem('currentUser');
+  let customerName, customerEmail;
+  
+  if (currentUser) {
+    // المستخدم مسجل دخول
+    const user = JSON.parse(currentUser);
+    customerName = user.displayName;
+    customerEmail = user.email || '';
+    
+    // تأكيد البيانات
+    const confirmName = prompt(`تأكيد الاسم:\n(اضغط OK للمتابعة أو عدّل الاسم)`, customerName);
+    if (!confirmName) return;
+    customerName = confirmName;
+  } else {
+    // طلب البيانات من الزائر
+    customerName = prompt('من فضلك أدخل اسمك:');
+    if (!customerName) return;
+    customerEmail = '';
+  }
+  
+  const customerPhone = prompt('من فضلك أدخل رقم هاتفك:');
+  if (!customerPhone) return;
+  
+  let orderText = `🛒 *طلب جديد*\n\n`;
+  orderText += `👤 *الاسم:* ${customerName}\n`;
+  orderText += `📱 *الهاتف:* ${customerPhone}\n`;
+  if (customerEmail) {
+    orderText += `📧 *البريد:* ${customerEmail}\n`;
+  }
+  if (currentUser) {
+    const user = JSON.parse(currentUser);
+    orderText += `🔐 *نوع الحساب:* ${user.provider === 'google' ? 'Google' : user.provider === 'facebook' ? 'Facebook' : 'زائر'}\n`;
+  }
+  orderText += `\n━━━━━━━━━━━━━━\n📦 *المنتجات:*\n\n`;
+  
+  let total = 0;
+  
+  cart.forEach((item, index) => {
+    orderText += `${index + 1}. ${item.name}\n   💰 ${item.price}\n\n`;
+    const price = parseInt(item.price.replace(/[^\d]/g, ''));
+    total += price;
+  });
+  
+  orderText += `━━━━━━━━━━━━━━\n💵 *الإجمالي:* ${total} جنيه\n`;
+  orderText += `\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+  
+  // حفظ الطلب في localStorage
+  const order = {
+    id: Date.now(),
+    customerName: customerName,
+    customerPhone: customerPhone,
+    customerEmail: customerEmail,
+    userId: currentUser ? JSON.parse(currentUser).uid : null,
+    items: cart.map(item => ({name: item.name, price: item.price})),
+    total: total,
+    date: new Date().toISOString(),
+    status: 'pending' // pending, completed, archived
+  };
+  
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  orders.push(order);
+  localStorage.setItem('orders', JSON.stringify(orders));
+  
+  // إرسال لواتساب
+  const whatsappNumber = '201021669867'; // ضع رقم الواتساب هنا (بدون + أو 00)
+  const whatsappMessage = encodeURIComponent(orderText);
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+  
+  // إرسال لديسكورد (Webhook)
+  const discordWebhook = 'https://discord.com/api/webhooks/1437449240145170502/B5hPQciyygbMRkqoDhG3hmxh4M-h-7NY8tgPUBDPS4QiVls6Vffks0UmNrSPKqZ-Z6l1';
+  
+  // تنسيق رسالة ديسكورد
+  const discordMessage = {
+    content: `@everyone طلب جديد!`,
+    embeds: [{
+      title: "🛒 طلب جديد من المتجر",
+      color: 3447003,
+      fields: [
+        {
+          name: "👤 اسم العميل",
+          value: customerName,
+          inline: true
+        },
+        {
+          name: "📱 رقم الهاتف",
+          value: customerPhone,
+          inline: true
+        },
+        {
+          name: "📦 المنتجات",
+          value: cart.map((item, i) => `${i + 1}. ${item.name} - ${item.price}`).join('\n')
+        },
+        {
+          name: "💵 الإجمالي",
+          value: `${total} جنيه`,
+          inline: false
+        }
+      ],
+      footer: {
+        text: `الوقت: ${new Date().toLocaleString('ar-EG')}`
+      }
+    }]
+  };
+  
+  // إرسال لديسكورد
+  if (discordWebhook) {
+    fetch(discordWebhook, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(discordMessage)
+    }).catch(err => console.log('خطأ في إرسال الديسكورد:', err));
+  }
+  
+  // فتح واتساب
+  window.open(whatsappUrl, '_blank');
+  
+  // تفريغ السلة بعد إتمام الشراء
+  setTimeout(() => {
+    cart = [];
+    localStorage.setItem('shoppingCart', JSON.stringify(cart));
+    updateCart();
+    alert('تم إرسال طلبك بنجاح! ✅\n\nسيتم التواصل معك قريباً.');
+  }, 1000);
+}
+</script>
+
+</body>
+</html>

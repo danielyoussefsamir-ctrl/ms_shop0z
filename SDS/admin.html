@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم - إعدادات المتجر</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .login-container {
+    max-width: 400px;
+    margin: 100px auto;
+    background: linear-gradient(145deg, #1e1e2e, #252538);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    border: 1px solid rgba(100,200,255,0.2);
+  }
+
+  .login-container h2 {
+    text-align: center;
+    color: #667eea;
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+
+  .login-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(100,200,255,0.2);
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-size: 16px;
+  }
+
+  .login-container button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .login-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+  }
+
+  .admin-panel {
+    display: none;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .header {
+    background: linear-gradient(145deg, #1e1e2e, #252538);
+    padding: 20px 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(100,200,255,0.2);
+  }
+
+  .header h1 {
+    color: #667eea;
+    font-size: 32px;
+  }
+
+  .logout-btn {
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.5);
+  }
+
+  .tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  .tab-btn {
+    padding: 12px 30px;
+    background: linear-gradient(145deg, #1e1e2e, #252538);
+    border: 1px solid rgba(100,200,255,0.2);
+    border-radius: 10px;
+    color: #b0b0b0;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .product-card {
+    background: linear-gradient(145deg, #1e1e2e, #252538);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(100,200,255,0.2);
+  }
+
+  .product-card h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+
+  .product-card label {
+    display: block;
+    color: #b0b0b0;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+
+  .product-card input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(100,200,255,0.1);
+    border-radius: 6px;
+    color: #e0e0e0;
+    font-size: 14px;
+  }
+
+  .product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(100,200,255,0.2);
+  }
+
+  .save-all-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #27ae60, #229954);
+    border: none;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+    transition: all 0.3s;
+    z-index: 1000;
+  }
+
+  .save-all-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(39, 174, 96, 0.6);
+  }
+
+  .info-box {
+    background: linear-gradient(145deg, #1e1e2e, #252538);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(100,200,255,0.2);
+    color: #b0b0b0;
+  }
+
+  .add-product-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .add-product-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.5);
+  }
+
+  .delete-btn {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s;
+  }
+
+  .delete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.5);
+  }
+
+  .order-card {
+    background: linear-gradient(145deg, #1e1e2e, #252538);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(100,200,255,0.2);
+    margin-bottom: 15px;
+  }
+
+  .order-card.completed {
+    border-color: rgba(39, 174, 96, 0.4);
+    opacity: 0.7;
+  }
+
+  .order-card.archived {
+    display: none;
+  }
+
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(100,200,255,0.1);
+  }
+
+  .order-header h3 {
+    color: #667eea;
+    font-size: 18px;
+  }
+
+  .order-status {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .order-status.pending {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: #fff;
+  }
+
+  .order-status.completed {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: #fff;
+  }
+
+  .order-info {
+    margin-bottom: 15px;
+    color: #b0b0b0;
+  }
+
+  .order-info p {
+    margin: 5px 0;
+  }
+
+  .order-items {
+    background: rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+
+  .order-items p {
+    margin: 5px 0;
+    color: #e0e0e0;
+  }
+
+  .order-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .order-actions button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .complete-btn {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: #fff;
+  }
+
+  .complete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.5);
+  }
+
+  .archive-btn {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    color: #fff;
+  }
+
+  .archive-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(149, 165, 166, 0.5);
+  }
+
+  .orders-filter {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .filter-btn {
+    padding: 10px 20px;
+    background: linear-gradient(145deg, #1e1e2e, #252538);
+    border: 1px solid rgba(100,200,255,0.2);
+    border-radius: 8px;
+    color: #b0b0b0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .filter-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .orders-count {
+    background: rgba(102, 126, 234, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .orders-count span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #667eea;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div class="login-container" id="login-screen">
+  <h2 id="form-title">🔐 تسجيل الدخول للوحة التحكم</h2>
+  
+  <!-- Login Form -->
+  <div id="login-form">
+    <input type="text" id="login-username" placeholder="اسم المستخدم" />
+    <input type="password" id="login-password" placeholder="كلمة المرور" />
+    <button onclick="login()">دخول</button>
+    <!-- تم تعطيل التسجيلات الجديدة -->
+  </div>
+
+  <!-- Signup Form -->
+  <div id="signup-form" style="display: none;">
+    <input type="text" id="signup-username" placeholder="اسم المستخدم" />
+    <input type="password" id="signup-password" placeholder="كلمة المرور (5 حروف على الأقل)" />
+    <input type="password" id="signup-password-confirm" placeholder="تأكيد كلمة المرور" />
+    <button onclick="signup()">إنشاء حساب</button>
+    <p style="color: #667eea; text-align: center; margin-top: 15px; cursor: pointer;" onclick="showLogin()">
+      لديك حساب؟ <strong>سجل الدخول</strong>
+    </p>
+  </div>
+</div>
+
+<!-- Admin Panel -->
+<div class="admin-panel" id="admin-panel">
+  <div class="header">
+    <h1>⚙️ لوحة التحكم</h1>
+    <button class="logout-btn" onclick="logout()">تسجيل خروج</button>
+  </div>
+
+  <div class="info-box">
+    <h3 style="color: #667eea; margin-bottom: 10px;">📝 تعليمات:</h3>
+    <p>• يمكنك تعديل أسماء المنتجات والأسعار وروابط الصور</p>
+    <p>• اضغط "➕ إضافة منتج جديد" لإضافة منتج في أي قسم</p>
+    <p>• اضغط "🗑️ حذف المنتج" لحذف أي منتج</p>
+    <p>• اضغط "حفظ التغييرات" لحفظ جميع التعديلات</p>
+    <p>• للصور: استخدم روابط مباشرة (https://...) أو ارفع الصور على موقع مثل imgur.com</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('orders')">📋 الطلبات</button>
+    <button class="tab-btn" onclick="switchTab('robux')">روبكس</button>
+    <button class="tab-btn" onclick="switchTab('farm')">ماب المزرعة</button>
+    <button class="tab-btn" onclick="switchTab('heist')">ماب السرقة</button>
+  </div>
+
+  <!-- Orders Tab -->
+  <div class="tab-content active" id="orders-tab">
+    <div class="orders-count">
+      <p style="color: #b0b0b0; margin-bottom: 10px;">إجمالي الطلبات</p>
+      <span id="total-orders">0</span>
+    </div>
+    
+    <div class="orders-filter">
+      <button class="filter-btn active" onclick="filterOrders('all')">الكل</button>
+      <button class="filter-btn" onclick="filterOrders('pending')">قيد الانتظار</button>
+      <button class="filter-btn" onclick="filterOrders('completed')">مكتملة</button>
+      <button class="filter-btn" onclick="filterOrders('archived')">المؤرشفة</button>
+    </div>
+    
+    <div id="orders-container"></div>
+  </div>
+
+  <!-- Robux Tab -->
+  <div class="tab-content" id="robux-tab">
+    <button class="add-product-btn" onclick="addNewProduct('robux')">
+      ➕ إضافة منتج جديد
+    </button>
+    <div class="product-grid" id="robux-grid"></div>
+  </div>
+
+  <!-- Farm Map Tab -->
+  <div class="tab-content" id="farm-tab">
+    <button class="add-product-btn" onclick="addNewProduct('farm')">
+      ➕ إضافة منتج جديد
+    </button>
+    <div class="product-grid" id="farm-grid"></div>
+  </div>
+
+  <!-- Heist Map Tab -->
+  <div class="tab-content" id="heist-tab">
+    <button class="add-product-btn" onclick="addNewProduct('heist')">
+      ➕ إضافة منتج جديد
+    </button>
+    <div class="product-grid" id="heist-grid"></div>
+  </div>
+
+  <button class="save-all-btn" onclick="saveAll()">💾 حفظ جميع التغييرات</button>
+</div>
+
+<script>
+// إدارة المستخدمين
+function loadUsers() {
+  const users = localStorage.getItem('admin_users');
+  return users ? JSON.parse(users) : [];
+}
+
+function saveUsers(users) {
+  localStorage.setItem('admin_users', JSON.stringify(users));
+}
+
+function getCurrentUser() {
+  const username = localStorage.getItem('current_admin_user');
+  return username;
+}
+
+// عرض نموذج التسجيل
+function showSignup() {
+  document.getElementById('form-title').textContent = '📝 إنشاء حساب جديد';
+  document.getElementById('login-form').style.display = 'none';
+  document.getElementById('signup-form').style.display = 'block';
+}
+
+// عرض نموذج الدخول
+function showLogin() {
+  document.getElementById('form-title').textContent = '🔐 تسجيل الدخول للوحة التحكم';
+  document.getElementById('login-form').style.display = 'block';
+  document.getElementById('signup-form').style.display = 'none';
+}
+
+// تسجيل مستخدم جديد - معطل
+function signup() {
+  alert('❌ التسجيلات الجديدة معطلة حالياً. تواصل مع المسؤول للحصول على حساب.');
+  return;
+}
+
+// تسجيل الدخول
+function login() {
+  const username = document.getElementById('login-username').value.trim();
+  const password = document.getElementById('login-password').value;
+
+  if (!username || !password) {
+    alert('❌ من فضلك أدخل اسم المستخدم وكلمة المرور!');
+    return;
+  }
+
+  const users = loadUsers();
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (user) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    localStorage.setItem('current_admin_user', username);
+    localStorage.setItem('admin_logged_in', 'true');
+    renderAdminProducts();
+    updateHeader();
+  } else {
+    alert('❌ اسم المستخدم أو كلمة المرور غير صحيحة!');
+  }
+}
+
+// تحديث الهيدر بعد تسجيل الدخول
+function updateHeader() {
+  const username = getCurrentUser();
+  const headerTitle = document.querySelector('.header h1');
+  if (username) {
+    headerTitle.innerHTML = `⚙️ لوحة التحكم - <span style="color: #764ba2;">${username}</span>`;
+  }
+}
+
+// تحميل البيانات من localStorage
+function loadProducts() {
+  const defaultRobux = [
+    {name: 'صافي روبوكس 100', price: '40', img: 'https://via.placeholder.com/220x180?text=Robux+100'},
+    {name: 'صافي روبوكس 200', price: '80', img: 'https://via.placeholder.com/220x180?text=Robux+200'},
+    {name: 'صافي روبوكس 300', price: '120', img: 'https://via.placeholder.com/220x180?text=Robux+300'},
+    {name: 'صافي روبوكس 400', price: '160', img: 'https://via.placeholder.com/220x180?text=Robux+400'},
+    {name: 'صافي روبوكس 500', price: '200', img: 'https://via.placeholder.com/220x180?text=Robux+500'},
+    {name: 'صافي روبوكس 1000', price: '400', img: 'https://via.placeholder.com/220x180?text=Robux+1000'},
+    {name: 'تبرع روبوكس 100', price: '40', img: 'https://via.placeholder.com/220x180?text=Donate+100'},
+    {name: 'تبرع روبوكس 200', price: '80', img: 'https://via.placeholder.com/220x180?text=Donate+200'},
+    {name: 'تبرع روبوكس 300', price: '120', img: 'https://via.placeholder.com/220x180?text=Donate+300'},
+    {name: 'تبرع روبوكس 400', price: '160', img: 'https://via.placeholder.com/220x180?text=Donate+400'},
+    {name: 'تبرع روبوكس 500', price: '200', img: 'https://via.placeholder.com/220x180?text=Donate+500'},
+    {name: 'تبرع روبوكس 1000', price: '400', img: 'https://via.placeholder.com/220x180?text=Donate+1000'}
+  ];
+
+  const defaultFarm = [
+    {name: 'KITSUNE', price: '650', img: 'https://via.placeholder.com/220x180?text=KITSUNE'},
+    {name: 'RACCOON', price: '299', img: 'https://via.placeholder.com/220x180?text=RACCOON'},
+    {name: 'DISCO BEE', price: '230', img: 'https://via.placeholder.com/220x180?text=DISCO+BEE'},
+    {name: 'BUTTERFLY', price: '200', img: 'https://via.placeholder.com/220x180?text=BUTTERFLY'},
+    {name: 'FENNEC FOX', price: '200', img: 'https://via.placeholder.com/220x180?text=FENNEC+FOX'},
+    {name: 'SPINOSAURUS', price: '90', img: 'https://via.placeholder.com/220x180?text=SPINOSAURUS'},
+    {name: 'GRIFFIN', price: '40', img: 'https://via.placeholder.com/220x180?text=GRIFFIN'},
+    {name: 'MIMIC OCTOPUS', price: '80', img: 'https://via.placeholder.com/220x180?text=MIMIC+OCTOPUS'},
+    {name: 'DRAGONFLY', price: '90', img: 'https://via.placeholder.com/220x180?text=DRAGONFLY'},
+    {name: 'T-REX', price: '90', img: 'https://via.placeholder.com/220x180?text=T-REX'},
+    {name: 'GOLDEN GOOSE', price: '50', img: 'https://via.placeholder.com/220x180?text=GOLDEN+GOOSE'},
+    {name: 'QUEEN BEE', price: '90', img: 'https://via.placeholder.com/220x180?text=QUEEN+BEE'},
+    {name: 'CHICKEN ZOMBIE', price: '70', img: 'https://via.placeholder.com/220x180?text=CHICKEN+ZOMBIE'},
+    {name: 'RED FOX', price: '30', img: 'https://via.placeholder.com/220x180?text=RED+FOX'}
+  ];
+
+  const defaultHeist = [
+    {name: 'Chillin Chili', price: '500', img: 'https://via.placeholder.com/220x180?text=Chillin+Chili'},
+    {name: 'Esok Sekola', price: '300', img: 'https://via.placeholder.com/220x180?text=Esok+Sekola'},
+    {name: 'La Grande Combinasion', price: '150', img: 'https://via.placeholder.com/220x180?text=La+Grande+Combinasion'},
+    {name: 'Eviledon', price: '550', img: 'https://via.placeholder.com/220x180?text=Eviledon'},
+    {name: 'Ketupat Kepat', price: '600', img: 'https://via.placeholder.com/220x180?text=Ketupat+Kepat'}
+  ];
+
+  return {
+    robux: JSON.parse(localStorage.getItem('admin_robux')) || defaultRobux,
+    farm: JSON.parse(localStorage.getItem('admin_farm')) || defaultFarm,
+    heist: JSON.parse(localStorage.getItem('admin_heist')) || defaultHeist
+  };
+}
+
+// عرض المنتجات في الإدارة
+function renderAdminProducts() {
+  const products = loadProducts();
+  
+  renderProductGrid('robux-grid', products.robux, 'robux');
+  renderProductGrid('farm-grid', products.farm, 'farm');
+  renderProductGrid('heist-grid', products.heist, 'heist');
+}
+
+function renderProductGrid(gridId, products, category) {
+  const grid = document.getElementById(gridId);
+  grid.innerHTML = '';
+  
+  products.forEach((product, index) => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <h3>${product.name}</h3>
+      <img src="${product.img}" alt="${product.name}" id="${category}-img-${index}">
+      <label>اسم المنتج:</label>
+      <input type="text" value="${product.name}" id="${category}-name-${index}">
+      <label>السعر (جنيه):</label>
+      <input type="number" value="${product.price}" id="${category}-price-${index}">
+      <label>رابط الصورة:</label>
+      <input type="url" value="${product.img}" id="${category}-imgurl-${index}" 
+             onchange="updateImagePreview('${category}', ${index})">
+      <button class="delete-btn" onclick="deleteProduct('${category}', ${index})">🗑️ حذف المنتج</button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function updateImagePreview(category, index) {
+  const url = document.getElementById(`${category}-imgurl-${index}`).value;
+  document.getElementById(`${category}-img-${index}`).src = url;
+}
+
+// إضافة منتج جديد
+function addNewProduct(category) {
+  const products = loadProducts();
+  const categoryMap = {
+    'robux': products.robux,
+    'farm': products.farm,
+    'heist': products.heist
+  };
+  
+  const newProduct = {
+    name: 'منتج جديد',
+    price: '0',
+    img: 'https://via.placeholder.com/220x180?text=New+Product'
+  };
+  
+  categoryMap[category].push(newProduct);
+  
+  // حفظ في localStorage
+  localStorage.setItem(`admin_${category}`, JSON.stringify(categoryMap[category]));
+  
+  // إعادة عرض المنتجات
+  renderAdminProducts();
+  
+  alert('✅ تم إضافة منتج جديد! قم بتعديل بياناته ثم اضغط "حفظ التغييرات"');
+}
+
+// حذف منتج
+function deleteProduct(category, index) {
+  if (!confirm('⚠️ هل أنت متأكد من حذف هذا المنتج؟')) {
+    return;
+  }
+  
+  const products = loadProducts();
+  const categoryMap = {
+    'robux': products.robux,
+    'farm': products.farm,
+    'heist': products.heist
+  };
+  
+  categoryMap[category].splice(index, 1);
+  
+  // حفظ في localStorage
+  localStorage.setItem(`admin_${category}`, JSON.stringify(categoryMap[category]));
+  
+  // إعادة عرض المنتجات
+  renderAdminProducts();
+  
+  alert('✅ تم حذف المنتج بنجاح!');
+}
+
+// حفظ التغييرات
+function saveAll() {
+  const products = loadProducts();
+  
+  // حفظ Robux
+  products.robux.forEach((product, index) => {
+    product.name = document.getElementById(`robux-name-${index}`).value;
+    product.price = document.getElementById(`robux-price-${index}`).value;
+    product.img = document.getElementById(`robux-imgurl-${index}`).value;
+  });
+  
+  // حفظ Farm
+  products.farm.forEach((product, index) => {
+    product.name = document.getElementById(`farm-name-${index}`).value;
+    product.price = document.getElementById(`farm-price-${index}`).value;
+    product.img = document.getElementById(`farm-imgurl-${index}`).value;
+  });
+  
+  // حفظ Heist
+  products.heist.forEach((product, index) => {
+    product.name = document.getElementById(`heist-name-${index}`).value;
+    product.price = document.getElementById(`heist-price-${index}`).value;
+    product.img = document.getElementById(`heist-imgurl-${index}`).value;
+  });
+  
+  localStorage.setItem('admin_robux', JSON.stringify(products.robux));
+  localStorage.setItem('admin_farm', JSON.stringify(products.farm));
+  localStorage.setItem('admin_heist', JSON.stringify(products.heist));
+  
+  alert('✅ تم حفظ جميع التغييرات بنجاح!');
+}
+
+// تسجيل الخروج
+function logout() {
+  localStorage.removeItem('admin_logged_in');
+  localStorage.removeItem('current_admin_user');
+  location.reload();
+}
+
+// التبديل بين التبويبات
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  
+  event.target.classList.add('active');
+  document.getElementById(`${tab}-tab`).classList.add('active');
+  
+  // تحميل الطلبات عند فتح تبويب الطلبات
+  if (tab === 'orders') {
+    loadOrders();
+  }
+}
+
+// إدارة الطلبات
+let currentFilter = 'all';
+
+function loadOrders() {
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const container = document.getElementById('orders-container');
+  const totalCount = document.getElementById('total-orders');
+  
+  // عرض العدد الإجمالي
+  const pendingCount = orders.filter(o => o.status === 'pending').length;
+  totalCount.textContent = pendingCount;
+  
+  // فلترة الطلبات
+  let filteredOrders = orders;
+  if (currentFilter !== 'all') {
+    filteredOrders = orders.filter(o => o.status === currentFilter);
+  }
+  
+  // ترتيب الطلبات (الأحدث أولاً)
+  filteredOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+  if (filteredOrders.length === 0) {
+    container.innerHTML = '<div class="info-box" style="text-align: center;">لا توجد طلبات</div>';
+    return;
+  }
+  
+  container.innerHTML = '';
+  
+  filteredOrders.forEach(order => {
+    const orderCard = document.createElement('div');
+    orderCard.className = `order-card ${order.status}`;
+    
+    const statusText = {
+      'pending': 'قيد الانتظار',
+      'completed': 'مكتمل',
+      'archived': 'مؤرشف'
+    };
+    
+    const date = new Date(order.date).toLocaleString('ar-EG');
+    
+    const itemsList = order.items.map((item, i) => 
+      `<p>${i + 1}. ${item.name} - ${item.price}</p>`
+    ).join('');
+    
+    orderCard.innerHTML = `
+      <div class="order-header">
+        <h3>طلب #${order.id}</h3>
+        <span class="order-status ${order.status}">${statusText[order.status]}</span>
+      </div>
+      
+      <div class="order-info">
+        <p><strong>👤 العميل:</strong> ${order.customerName}</p>
+        <p><strong>📱 الهاتف:</strong> ${order.customerPhone}</p>
+        <p><strong>⏰ التاريخ:</strong> ${date}</p>
+      </div>
+      
+      <div class="order-items">
+        <p style="color: #667eea; font-weight: bold; margin-bottom: 10px;">📦 المنتجات:</p>
+        ${itemsList}
+        <p style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(100,200,255,0.1);">
+          <strong>💵 الإجمالي:</strong> ${order.total} جنيه
+        </p>
+      </div>
+      
+      <div class="order-actions">
+        ${order.status === 'pending' ? `
+          <button class="complete-btn" onclick="markOrderComplete(${order.id})">
+            ✅ تم إكمال الطلب
+          </button>
+        ` : ''}
+        ${order.status === 'completed' ? `
+          <button class="archive-btn" onclick="archiveOrder(${order.id})">
+            📁 أرشفة الطلب
+          </button>
+        ` : ''}
+        ${order.status === 'archived' ? `
+          <button class="delete-btn" onclick="deleteOrder(${order.id})">
+            🗑️ حذف نهائياً
+          </button>
+        ` : ''}
+      </div>
+    `;
+    
+    container.appendChild(orderCard);
+  });
+}
+
+function filterOrders(filter) {
+  currentFilter = filter;
+  
+  // تحديث الأزرار
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  loadOrders();
+}
+
+function markOrderComplete(orderId) {
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const order = orders.find(o => o.id === orderId);
+  
+  if (order) {
+    order.status = 'completed';
+    localStorage.setItem('orders', JSON.stringify(orders));
+    loadOrders();
+    alert('✅ تم تعليم الطلب كمكتمل!');
+  }
+}
+
+function archiveOrder(orderId) {
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const order = orders.find(o => o.id === orderId);
+  
+  if (order) {
+    order.status = 'archived';
+    localStorage.setItem('orders', JSON.stringify(orders));
+    loadOrders();
+    alert('📁 تم أرشفة الطلب بنجاح!');
+  }
+}
+
+function deleteOrder(orderId) {
+  if (!confirm('⚠️ هل أنت متأكد من حذف هذا الطلب نهائياً؟')) {
+    return;
+  }
+  
+  let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  orders = orders.filter(o => o.id !== orderId);
+  localStorage.setItem('orders', JSON.stringify(orders));
+  loadOrders();
+  alert('🗑️ تم حذف الطلب نهائياً!');
+}
+
+// التحقق من تسجيل الدخول عند تحميل الصفحة
+window.onload = function() {
+  if (localStorage.getItem('admin_logged_in') === 'true' && getCurrentUser()) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    renderAdminProducts();
+    updateHeader();
+    loadOrders(); // تحميل الطلبات عند فتح الصفحة
+  }
+  
+  // Enter key للنماذج
+  document.getElementById('login-password').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') login();
+  });
+  
+  document.getElementById('signup-password-confirm').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') signup();
+  });
+};
+</script>
+
+</body>
+</html>

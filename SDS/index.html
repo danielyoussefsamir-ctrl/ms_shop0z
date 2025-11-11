@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اختر القسم - متجر الألعاب</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    position: relative;
+    overflow-x: hidden;
+    padding: 20px;
+  }
+
+  /* الخطوط المتحركة في الخلفية */
+  .animated-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.5), transparent);
+    animation: moveLine 8s linear infinite;
+  }
+
+  .line:nth-child(1) {
+    width: 2px;
+    height: 100%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 10s;
+  }
+
+  .line:nth-child(2) {
+    width: 2px;
+    height: 100%;
+    left: 30%;
+    animation-delay: 2s;
+    animation-duration: 12s;
+  }
+
+  .line:nth-child(3) {
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    animation-delay: 4s;
+    animation-duration: 9s;
+  }
+
+  .line:nth-child(4) {
+    width: 2px;
+    height: 100%;
+    left: 70%;
+    animation-delay: 1s;
+    animation-duration: 11s;
+  }
+
+  .line:nth-child(5) {
+    width: 2px;
+    height: 100%;
+    left: 90%;
+    animation-delay: 3s;
+    animation-duration: 13s;
+  }
+
+  .line-horizontal {
+    width: 100%;
+    height: 2px;
+    animation: moveLineHorizontal 15s linear infinite;
+  }
+
+  .line-horizontal:nth-child(6) {
+    top: 20%;
+    animation-delay: 0s;
+  }
+
+  .line-horizontal:nth-child(7) {
+    top: 50%;
+    animation-delay: 5s;
+  }
+
+  .line-horizontal:nth-child(8) {
+    top: 80%;
+    animation-delay: 10s;
+  }
+
+  @keyframes moveLine {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes moveLineHorizontal {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  /* رسومات هندسية متحركة */
+  .floating-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .shape {
+    position: absolute;
+    opacity: 0.1;
+    animation: float 20s infinite ease-in-out;
+  }
+
+  .shape.circle {
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+  }
+
+  .shape.square {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    transform: rotate(45deg);
+  }
+
+  .shape.triangle {
+    width: 0;
+    height: 0;
+    background: transparent;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid rgba(102, 126, 234, 0.3);
+  }
+
+  .shape:nth-child(1) {
+    width: 80px;
+    height: 80px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 15s;
+  }
+
+  .shape:nth-child(2) {
+    width: 60px;
+    height: 60px;
+    top: 20%;
+    right: 15%;
+    animation-delay: 2s;
+    animation-duration: 18s;
+  }
+
+  .shape:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    bottom: 15%;
+    left: 20%;
+    animation-delay: 4s;
+    animation-duration: 20s;
+  }
+
+  .shape:nth-child(4) {
+    width: 70px;
+    height: 70px;
+    top: 60%;
+    right: 10%;
+    animation-delay: 1s;
+    animation-duration: 16s;
+  }
+
+  .shape:nth-child(5) {
+    top: 40%;
+    left: 5%;
+    animation-delay: 3s;
+    animation-duration: 22s;
+  }
+
+  .shape:nth-child(6) {
+    width: 90px;
+    height: 90px;
+    bottom: 20%;
+    right: 20%;
+    animation-delay: 5s;
+    animation-duration: 19s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-30px) rotate(90deg);
+    }
+    50% {
+      transform: translateY(0) rotate(180deg);
+    }
+    75% {
+      transform: translateY(-30px) rotate(270deg);
+    }
+  }
+
+  /* نجوم متلألئة */
+  .stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.2;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+  }
+
+  /* الشعار كعلامة مائية كبيرة جدًا */
+  .watermark {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(300px, 60vw, 1000px);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    opacity: 0.05;
+    text-shadow: 
+      0 0 50px rgba(102, 126, 234, 0.3),
+      0 0 100px rgba(102, 126, 234, 0.2),
+      0 0 150px rgba(102, 126, 234, 0.1);
+    white-space: nowrap;
+    animation: pulse 4s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.05;
+    }
+    50% {
+      opacity: 0.08;
+    }
+  }
+
+  header {
+    width: 100%;
+    max-width: 1200px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    z-index: 2;
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  /* User Profile Styles */
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(145deg, rgba(30, 30, 46, 0.8), rgba(37, 37, 56, 0.8));
+    backdrop-filter: blur(10px);
+    padding: 8px 15px;
+    border-radius: 50px;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .user-profile:hover {
+    border-color: rgba(102, 126, 234, 0.6);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+  }
+
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #667eea;
+    object-fit: cover;
+  }
+
+  .user-profile span {
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .logout-btn {
+    background: rgba(255, 59, 129, 0.2);
+    color: #ff3b81;
+    border: 1px solid #ff3b81;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .logout-btn:hover {
+    background: #ff3b81;
+    color: #fff;
+    transform: scale(1.05);
+  }
+
+  .login-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  }
+
+  .login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+  }
+
+  h1 {
+    font-size: clamp(24px, 5vw, 42px);
+    margin-bottom: clamp(30px, 5vh, 60px);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+    z-index: 2;
+    position: relative;
+    font-weight: bold;
+    padding: 0 15px;
+    line-height: 1.3;
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 500px;
+    z-index: 2;
+  }
+
+  .section-btn {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding: clamp(18px, 3vw, 25px) clamp(30px, 5vw, 60px);
+    font-size: clamp(16px, 3vw, 22px);
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+    background-size: 200% 200%;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 
+      0 5px 15px rgba(102, 126, 234, 0.4),
+      0 0 20px rgba(102, 126, 234, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    animation: gradientShift 3s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* تأثير التموج */
+  .section-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .section-btn:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  /* أيقونة سهم متحركة */
+  .section-btn::after {
+    content: '→';
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+
+  .section-btn:hover::after {
+    left: 15px;
+    opacity: 1;
+    animation: arrowBounce 0.6s ease;
+  }
+
+  @keyframes arrowBounce {
+    0%, 100% {
+      transform: translateY(-50%) scale(1);
+    }
+    50% {
+      transform: translateY(-50%) scale(1.2);
+    }
+  }
+
+  .section-btn:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 
+      0 10px 30px rgba(102, 126, 234, 0.6),
+      0 0 40px rgba(102, 126, 234, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    padding-right: 50px;
+  }
+
+  .section-btn:active {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 
+      0 5px 15px rgba(102, 126, 234, 0.5),
+      0 0 20px rgba(102, 126, 234, 0.3);
+  }
+
+  /* جزيئات متحركة */
+  .section-btn .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .section-btn .particles span {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: particleFloat 2s linear infinite;
+    opacity: 0;
+  }
+
+  .section-btn:hover .particles span {
+    opacity: 1;
+  }
+
+  .section-btn .particles span:nth-child(1) {
+    left: 20%;
+    animation-delay: 0s;
+  }
+
+  .section-btn .particles span:nth-child(2) {
+    left: 40%;
+    animation-delay: 0.3s;
+  }
+
+  .section-btn .particles span:nth-child(3) {
+    left: 60%;
+    animation-delay: 0.6s;
+  }
+
+  .section-btn .particles span:nth-child(4) {
+    left: 80%;
+    animation-delay: 0.9s;
+  }
+
+  @keyframes particleFloat {
+    0% {
+      bottom: 0;
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      bottom: 100%;
+      opacity: 0;
+    }
+  }
+
+  /* للشاشات الصغيرة جداً (الهواتف الصغيرة) */
+  @media (max-width: 480px) {
+    body {
+      padding: 15px;
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+
+    .buttons-container {
+      gap: 12px;
+    }
+
+    .section-btn {
+      padding: 15px 25px;
+      font-size: 16px;
+    }
+
+    .watermark {
+      font-size: 250px;
+    }
+  }
+
+  /* للأجهزة اللوحية (Tablets) */
+  @media (min-width: 481px) and (max-width: 768px) {
+    h1 {
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    .buttons-container {
+      max-width: 450px;
+    }
+
+    .section-btn {
+      padding: 20px 45px;
+      font-size: 20px;
+    }
+  }
+
+  /* للشاشات الكبيرة (الكمبيوتر واللابتوب) */
+  @media (min-width: 769px) {
+    .buttons-container {
+      max-width: 500px;
+    }
+  }
+
+  /* للشاشات الكبيرة جداً */
+  @media (min-width: 1400px) {
+    .buttons-container {
+      max-width: 600px;
+    }
+
+    .section-btn {
+      padding: 28px 70px;
+      font-size: 24px;
+    }
+  }
+
+  /* للوضع الأفقي في الهواتف */
+  @media (max-height: 500px) and (orientation: landscape) {
+    h1 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .buttons-container {
+      flex-direction: row;
+      max-width: 100%;
+      gap: 10px;
+    }
+
+    .section-btn {
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- الخطوط المتحركة -->
+<div class="animated-lines">
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line line-horizontal"></div>
+  <div class="line line-horizontal"></div>
+  <div class="line line-horizontal"></div>
+</div>
+
+<!-- الأشكال الهندسية الطائرة -->
+<div class="floating-shapes">
+  <div class="shape circle"></div>
+  <div class="shape square"></div>
+  <div class="shape circle"></div>
+  <div class="shape square"></div>
+  <div class="shape triangle"></div>
+  <div class="shape circle"></div>
+</div>
+
+<!-- النجوم المتلألئة -->
+<div class="stars" id="stars-container"></div>
+
+<!-- شعار خلفي ضخم مع إضاءة -->
+<div class="watermark">MS</div>
+
+<header>
+  <!-- User Profile Section -->
+  <div class="user-profile" id="user-profile" style="display: none;">
+    <img src="" alt="User" id="user-avatar" class="user-avatar">
+    <span id="user-name">مستخدم</span>
+    <button class="logout-btn" id="logout-btn">تسجيل خروج</button>
+  </div>
+  <div class="login-prompt" id="login-prompt">
+    <button class="login-btn" onclick="window.location.href='login.html'">تسجيل الدخول</button>
+  </div>
+</header>
+
+<h1>اختر القسم الذي تريد تصفحه</h1>
+
+<div class="buttons-container">
+  <button class="section-btn" onclick="chooseSection('robux')">
+    <div class="particles">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    روبكس
+  </button>
+
+  <button class="section-btn" onclick="chooseSection('farm_map')">
+    <div class="particles">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    ماب المزرعة
+  </button>
+
+  <button class="section-btn" onclick="chooseSection('heist_map')">
+    <div class="particles">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    ماب السرقة
+  </button>
+</div>
+
+<script>
+// إضافة نجوم عشوائية
+function createStars() {
+  const starsContainer = document.getElementById('stars-container');
+  const numberOfStars = 100;
+  
+  for (let i = 0; i < numberOfStars; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    starsContainer.appendChild(star);
+  }
+}
+
+createStars();
+
+function chooseSection(section) {
+  localStorage.setItem('selectedSection', section);
+  window.location.href = 'store.html';
+}
+
+// User Authentication Check
+function checkUserLogin() {
+  const currentUser = localStorage.getItem('currentUser');
+  const userProfile = document.getElementById('user-profile');
+  const loginPrompt = document.getElementById('login-prompt');
+  
+  if (currentUser) {
+    const user = JSON.parse(currentUser);
+    
+    // عرض معلومات المستخدم
+    userProfile.style.display = 'flex';
+    loginPrompt.style.display = 'none';
+    
+    // تحديث الاسم
+    document.getElementById('user-name').textContent = user.displayName || 'مستخدم';
+    
+    // تحديث الصورة
+    const avatar = document.getElementById('user-avatar');
+    if (user.photoURL) {
+      avatar.src = user.photoURL;
+    } else {
+      // صورة افتراضية
+      avatar.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23667eea"%3E%3Cpath d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/%3E%3C/svg%3E';
+    }
+  } else {
+    // عرض زر تسجيل الدخول
+    userProfile.style.display = 'none';
+    loginPrompt.style.display = 'block';
+  }
+}
+
+// Logout Function
+document.getElementById('logout-btn').addEventListener('click', () => {
+  if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+    localStorage.removeItem('currentUser');
+    location.reload();
+  }
+});
+
+// تحقق من تسجيل الدخول عند تحميل الصفحة
+checkUserLogin();
+</script>
+
+</body>
+</html>
